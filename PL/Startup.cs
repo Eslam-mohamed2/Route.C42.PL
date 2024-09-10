@@ -1,6 +1,8 @@
+using Data_Access_Layer.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,9 +23,25 @@ namespace PL
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services) // To Allow The depands Injection to DbContext 
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(); // Register Built in services Required by MVC
+                                                //services.AddRazorPages(); // Register Common use Feature in Razer Pages
+                                                //services.AddMvc(); // If u wanna make your Project MVC / Razer Pages / Web APIs
+
+            //services.AddTransient<ApplicationDbContext>();
+            //services.AddScoped<ApplicationDbContext>();
+            //services.AddScoped<DbContextOptions<ApplicationDbContext>>();
+            //services.AddSingleton<ApplicationDbContext>();
+
+            //services.AddDbContext<ApplicationDbContext>(); // if i Didn't Select The Life Time It Will Be By Default -> [escoped]  
+            //contextLifetime: ServiceLifetime.Singleton,
+            //optionsLifetime: ServiceLifetime.Singleton
+            //);
+
+            services.AddDbContext<ApplicationDbContext>(Options => {
+                Options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")); 
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

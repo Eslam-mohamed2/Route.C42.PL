@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data_Access_Layer.Models
 {
-    internal class Department
+    public class Department
     {
         public int Id { get; set; }
         public string Code { get; set; }

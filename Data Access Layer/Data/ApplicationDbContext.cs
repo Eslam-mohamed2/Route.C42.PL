@@ -10,10 +10,16 @@ using System.Threading.Tasks;
 
 namespace Data_Access_Layer.Data
 {
-    internal class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server = .; Database = MVCApplication; Trusted_Connection = True; MultipleActiveResultSets = True");
+        // Without using the Dependency Injection 
+        //public ApplicationDbContext() { }
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //=> optionsBuilder.UseSqlServer("Server = .; Database = MVCApplication; Trusted_Connection = True; MultipleActiveResultSets = True");
+
+        // using the Dependency Injection
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> Options):base(Options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
