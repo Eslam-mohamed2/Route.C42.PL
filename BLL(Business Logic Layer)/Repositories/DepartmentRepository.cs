@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BLL_Business_Logic_Layer_.Repositories
 {
-    internal class DepartmentRepository : IDepartmentRepository
+    public class DepartmentRepository : IDepartmentRepository
     {
         private readonly ApplicationDbContext _DbContext;
 

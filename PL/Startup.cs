@@ -1,3 +1,5 @@
+using BLL_Business_Logic_Layer_.Interfaces;
+using BLL_Business_Logic_Layer_.Repositories;
 using Data_Access_Layer.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,7 +30,10 @@ namespace PL
             services.AddControllersWithViews(); // Register Built in services Required by MVC
                                                 //services.AddRazorPages(); // Register Common use Feature in Razer Pages
                                                 //services.AddMvc(); // If u wanna make your Project MVC / Razer Pages / Web APIs
-
+            services.AddDbContext<ApplicationDbContext>(Options => {
+                Options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")); 
+            });
+            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             //services.AddTransient<ApplicationDbContext>();
             //services.AddScoped<ApplicationDbContext>();
             //services.AddScoped<DbContextOptions<ApplicationDbContext>>();
@@ -39,9 +44,6 @@ namespace PL
             //optionsLifetime: ServiceLifetime.Singleton
             //);
 
-            services.AddDbContext<ApplicationDbContext>(Options => {
-                Options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")); 
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
