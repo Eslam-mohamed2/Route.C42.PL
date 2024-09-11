@@ -13,7 +13,12 @@ namespace PL
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+           var HostBuilder = CreateHostBuilder(args).Build();
+
+            // Date Seeding 
+            // Apply Migrations 
+
+            HostBuilder.Run(); // Application is Ready for Requests
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
